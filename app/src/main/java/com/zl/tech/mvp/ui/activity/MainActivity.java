@@ -1,7 +1,10 @@
 package com.zl.tech.mvp.ui.activity;
 
+import android.content.Intent;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.zl.tech.R;
+import com.zl.tech.application.MyApplication;
 import com.zl.tech.mvp.base.activity.BaseActivity;
 import com.zl.tech.mvp.base.BasePresenter;
 import butterknife.BindView;
@@ -43,13 +46,45 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initEventAndData() {
-
+        mOneAnimation.setAnimation("W.json");
+        mOneAnimation.playAnimation();
+        mTwoAnimation.setAnimation("A.json");
+        mTwoAnimation.playAnimation();
+        mThreeAnimation.setAnimation("N.json");
+        mThreeAnimation.playAnimation();
+        mFourAnimation.setAnimation("A.json");
+        mFourAnimation.playAnimation();
+        mFiveAnimation.setAnimation("N.json");
+        mFiveAnimation.playAnimation();
+        mSixAnimation.setAnimation("D.json");
+        mSixAnimation.playAnimation();
+        mSevenAnimation.setAnimation("R.json");
+        mSevenAnimation.playAnimation();
+        mEightAnimation.setAnimation("I.json");
+        mEightAnimation.playAnimation();
+        mNineAnimation.setAnimation("O.json");
+        mNineAnimation.playAnimation();
+        mTenAnimation.setAnimation("D.json");
+        mTenAnimation.playAnimation();
     }
 
     @Override
     protected void initToobar() {
+        if (!MyApplication.isFirstRun) {
+            goToShow();
+            return;
+        }
+
+        MyApplication.isFirstRun = false;
+    }
+
+    private void goToShow() {
+        Intent intent = new Intent(this, ShowActivity.class);
+        startActivity(intent);
 
     }
+
+
 
     @Override
     protected BasePresenter getPresenter() {
@@ -61,9 +96,38 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
         finish();
     }
+
+    @Override
+    protected void onDestroy() {
+
+        cancenAnimation();
+
+        super.onDestroy();
+    }
+
+//    关闭动画
+    private void cancenAnimation(LottieAnimationView lottieAnimationView) {
+
+        if(lottieAnimationView != null){
+            lottieAnimationView.cancelAnimation();
+        }
+    }
+
+    private void cancenAnimation(){
+        cancenAnimation(mOneAnimation);
+        cancenAnimation(mTwoAnimation);
+        cancenAnimation(mThreeAnimation);
+        cancenAnimation(mFourAnimation);
+        cancenAnimation(mFiveAnimation);
+        cancenAnimation(mSixAnimation);
+        cancenAnimation(mSevenAnimation);
+        cancenAnimation(mEightAnimation);
+        cancenAnimation(mNineAnimation);
+        cancenAnimation(mTenAnimation);
+    }
+
 
 }
 

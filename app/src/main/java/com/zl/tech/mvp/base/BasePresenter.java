@@ -18,15 +18,14 @@ public abstract class BasePresenter<P extends BaseView> {
         return weakReference.get();
     }
 
-    ;
-
     boolean isAttachView() {
         return weakReference.get() != null && weakReference != null;
-    };
+    }
 
     public void AttachView(P p) {
 
         weakReference = new WeakReference(p);
+        p = null;
     }
 
     public void Destory() {

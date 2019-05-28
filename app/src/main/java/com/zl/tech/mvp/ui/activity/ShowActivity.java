@@ -43,9 +43,7 @@ public class ShowActivity extends BaseActivity {
     }
 
     @Override
-    protected void initData() {
-
-
+    protected void initEventAndData() {
         if (btnRb1.isChecked()){
             addFragment(INFORMATION);
         }
@@ -55,25 +53,32 @@ public class ShowActivity extends BaseActivity {
         list.add(MESSAGE);
         list.add(COMMUNITY);
 
-        btnRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i) {
-                    default:
-                        break;
-                    case R.id.btn_rb1:
-                        addFragment(INFORMATION);
-                        break;
-                    case R.id.btn_rb2:
-                        addFragment(MESSAGE);
-                        break;
-                    case R.id.btn_rb3:
-                        addFragment(COMMUNITY);
-                        break;
-                }
-
+        btnRg.setOnCheckedChangeListener((radioGroup, i) -> {
+            switch (i) {
+                default:
+                    break;
+                case R.id.btn_rb1:
+                    addFragment(INFORMATION);
+                    break;
+                case R.id.btn_rb2:
+                    addFragment(MESSAGE);
+                    break;
+                case R.id.btn_rb3:
+                    addFragment(COMMUNITY);
+                    break;
             }
+
         });
+    }
+
+    @Override
+    protected void initToobar() {
+
+    }
+
+
+    @Override
+    protected void initData() {
 
     }
 
