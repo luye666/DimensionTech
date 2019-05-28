@@ -1,16 +1,14 @@
 package com.zl.tech.mvp.ui.activity;
-
-
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.zl.tech.R;
-import com.zl.tech.mvp.base.BaseActivity;
+import com.zl.tech.mvp.base.activity.BaseActivity;
 import com.zl.tech.mvp.base.BasePresenter;
 import com.zl.tech.mvp.ui.fragment.CommunityFragment;
 import com.zl.tech.mvp.ui.fragment.InformationFlagment;

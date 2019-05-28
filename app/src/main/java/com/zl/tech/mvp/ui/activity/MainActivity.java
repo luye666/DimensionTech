@@ -1,23 +1,34 @@
 package com.zl.tech.mvp.ui.activity;
 
-
-
+import com.airbnb.lottie.LottieAnimationView;
 import com.zl.tech.R;
-import com.zl.tech.mvp.base.BaseActivity;
+import com.zl.tech.mvp.base.activity.BaseActivity;
 import com.zl.tech.mvp.base.BasePresenter;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.widget.ImageView;
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 public class MainActivity extends BaseActivity {
 
 
-    @BindView(R.id.guide)
-    ImageView guide;
+    @BindView(R.id.one_animation)
+    LottieAnimationView mOneAnimation;
+    @BindView(R.id.two_animation)
+    LottieAnimationView mTwoAnimation;
+    @BindView(R.id.three_animation)
+    LottieAnimationView mThreeAnimation;
+    @BindView(R.id.four_animation)
+    LottieAnimationView mFourAnimation;
+    @BindView(R.id.five_animation)
+    LottieAnimationView mFiveAnimation;
+    @BindView(R.id.six_animation)
+    LottieAnimationView mSixAnimation;
+    @BindView(R.id.seven_animation)
+    LottieAnimationView mSevenAnimation;
+    @BindView(R.id.eight_animation)
+    LottieAnimationView mEightAnimation;
+    @BindView(R.id.nine_animation)
+    LottieAnimationView mNineAnimation;
+    @BindView(R.id.ten_animation)
+    LottieAnimationView mTenAnimation;
 
     @Override
     protected int initView() {
@@ -26,9 +37,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
         //设置动画
-        setAplanAnimation();
+
+    }
+
+    @Override
+    protected void initEventAndData() {
+
+    }
+
+    @Override
+    protected void initToobar() {
 
     }
 
@@ -37,36 +56,14 @@ public class MainActivity extends BaseActivity {
         return null;
     }
 
-    private void setAplanAnimation() {
-        AlphaAnimation alpha = new AlphaAnimation(0, 1);
-        alpha.setDuration(3000);
 
-        alpha.setFillAfter(true);
 
-        alpha.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+    @Override
+    protected void onStop() {
+        super.onStop();
 
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(MainActivity.this, ShowActivity.class);
-                startActivity(intent);
-                finish();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        guide.setAnimation(alpha);
+        finish();
     }
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }
 

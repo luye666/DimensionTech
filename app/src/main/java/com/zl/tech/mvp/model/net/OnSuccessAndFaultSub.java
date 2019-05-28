@@ -1,7 +1,8 @@
 package com.zl.tech.mvp.model.net;
 import android.content.Context;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.util.Log;
+
+import androidx.core.widget.ContentLoadingProgressBar;
 
 import com.zl.tech.mvp.base.BaseResponse;
 

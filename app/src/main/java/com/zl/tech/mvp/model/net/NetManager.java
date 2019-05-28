@@ -12,16 +12,12 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -34,11 +30,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * @author Administrator QQ:1228717266
- * @name DimensionTech
- * @time 2018/11/29 19:01
- */
+
 public class NetManager {
 
     private static final int DEFAULT_TIME_OUT = 5;//超时时间 5s
@@ -46,27 +38,6 @@ public class NetManager {
     public ApiService apiService;
     private Retrofit mRetrofit;
     public static final String CACHE_NAME = "xxx";
-    private String CER_SSL = "-----BEGIN CERTIFICATE-----\n" +
-            "MIIDXTCCAkUCCQDNhr7+xMtU3jANBgkqhkiG9w0BAQUFADBoMQswCQYDVQQGEwJD\n" +
-            "TjELMAkGA1UECAwCeDExCzAJBgNVBAcMAngyMQswCQYDVQQKDAJ4MzELMAkGA1UE\n" +
-            "CwwCeDUxCzAJBgNVBAMMAmJ3MRgwFgYJKoZIhvcNAQkBFgkxQDE2My5jb20wHhcN\n" +
-            "MTgwOTE3MTEyNjI2WhcNMjgwOTE0MTEyNjI2WjB5MQswCQYDVQQGEwJDTjELMAkG\n" +
-            "A1UECAwCeDExCzAJBgNVBAcMAngyMQ4wDAYDVQQKDAViYXdlaTEPMA0GA1UECwwG\n" +
-            "YmF3ZWkyMQswCQYDVQQDDAJidzEiMCAGCSqGSIb3DQEJARYTMTg2MDAxNTE1NjhA\n" +
-            "MTYzLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMRn5BnuG5Qm\n" +
-            "GBJV+aBdVpCPkXNs7sCZPpKT6K6gi1t2L88DOiZqsIi+06KsN55w/51YeuAHYq9w\n" +
-            "QFx9X34eFB/n//SKA/qkWznxZdtsAJUD3hkKkR3jhj+JP1EZWxwgIP5Dp1RyuBxH\n" +
-            "gEoe7UmK9o/V2hJ3HTAYF20vQquFltucl5svnmtQvF4aofhFQ3gqXYvXD6pxcIuI\n" +
-            "UOePK49hnlxz7v5t5s/0VXHHz+5THsEg14oW+kAPFKVPS59tjQV7LzDMXjunEBzc\n" +
-            "A/Jslafx32BF4Fy1aCbWCmIJSKou9MBnrP1MuheIpMO1qEMBXx/9MuLMFdnyj20N\n" +
-            "9M+WlaMBiMUCAwEAATANBgkqhkiG9w0BAQUFAAOCAQEAJf/W2zTuf9D36js7766T\n" +
-            "xpfWCVy0POqkdXNKvPThd/U6Qwi2QXc0CmNvr02lfVRu11cX4inR9RiJUXWoeG7J\n" +
-            "DDWBSBPKTpeF8+k2w+DjDAkE3mj3iCQdeydkhCUYquSxtFNC6mFZ9zrkMs7sGuBc\n" +
-            "GoDnueL8B2IiNfLtA3vUzvAkqh9b7rOBk1VXem4JFnIoisFufdzH1RhNWxZTgtlG\n" +
-            "+Po5VSrMpKgtPYLHFIprMIUwGfW7j36hhvnEArEVXLWjY3hhNvyJ4jBf0WRp44GA\n" +
-            "8OZ1zDEyVxxtOAQXXlfiYusPuy5Wup2P7RYo17xMVoHeQg6yF+iszlBHoJ5250iv\n" +
-            "kA==\n" +
-            "-----END CERTIFICATE-----";
 
     public static NetManager getInstance() {
         return NetInstance.ourInstance;
@@ -127,17 +98,6 @@ public class NetManager {
         builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
 
 
-        try {
-            SSLContext instance = SSLContext.getInstance("TLS");
-            TrustManager myTrustManager = new MyTrustManager(readCert(CER_SSL));
-            instance.init(null,new TrustManager[]{myTrustManager},null);
-            builder.sslSocketFactory(instance.getSocketFactory(), (X509TrustManager) myTrustManager)
-            .hostnameVerifier(hostnameVerifier);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
         // 创建Retrofit
         mRetrofit = new Retrofit.Builder()
                 .client(builder.build())
@@ -187,38 +147,6 @@ public class NetManager {
 
    private static class NetInstance{
         private static final NetManager ourInstance = new NetManager();
-    }
-
-    /**
-     * 实现了 X509TrustManager
-     * 通过此类中的 checkServerTrusted 方法来确认服务器证书是否正确
-     */
-    class MyTrustManager implements X509TrustManager {
-        X509Certificate cert;
-
-        MyTrustManager(X509Certificate cert) {
-            this.cert = cert;
-        }
-
-        @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            // 我们在客户端只做服务器端证书校验。
-        }
-
-        @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            // 确认服务器端证书和代码中 hard code 的 CRT 证书相同。
-            if (chain[0].equals(this.cert)) {
-                Log.i("Jin", "checkServerTrusted Certificate from server is valid!");
-                return;// found match
-            }
-            throw new CertificateException("checkServerTrusted No trusted server cert found!");
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
-        }
     }
 
 

@@ -9,11 +9,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * @author Administrator QQ:1228717266
- * @name DimensionTech
- * @time 2018/11/29 19:33
- */
+
 public class ObjectLoader {
 
     public  <T>Observable<T> activityObserve(Observable<T> observable, LifecycleProvider<ActivityEvent> lifecycleProvider){

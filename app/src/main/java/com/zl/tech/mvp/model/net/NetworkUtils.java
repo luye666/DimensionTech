@@ -15,10 +15,8 @@ import java.net.SocketException;
 import java.net.URL;
 import java.util.Enumeration;
 
-/***
- *@author 张露  QQ:1228717266
- * @time 2018/11/30  0:34
- *@describe 
+/**
+ * Created by zhanglu on 2019/03/16   QQ:1228717266
  */
 public class NetworkUtils {
 
