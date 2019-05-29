@@ -1,11 +1,12 @@
 package com.zl.tech.application;
 import android.content.Context;
-import android.os.Environment;
-
 import androidx.multidex.MultiDexApplication;
 
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.zl.tech.di.component.DaggerWanAndroidAppComponent;
+import com.zl.tech.di.component.WanAndroidAppComponent;
+import com.zl.tech.di.module.WanAndroidAppModule;
 
 /**
  * Created by zhanglu on 2019/05/28   QQ:1228717266
@@ -19,6 +20,8 @@ import com.squareup.leakcanary.RefWatcher;
 public class MyApplication extends MultiDexApplication {
 
     private RefWatcher refWatcher;
+
+    private WanAndroidAppComponent appComponent;
 
 //    判断是不是第一次进入应用(默认为true)
     public static boolean isFirstRun = true;
@@ -37,6 +40,10 @@ public class MyApplication extends MultiDexApplication {
         setContext(this);
 
 
+        appComponent = DaggerWanAndroidAppComponent.builder()
+                .wanAndroidAppModule(new WanAndroidAppModule(this))
+                .build();
+
     }
 
     private static Context context;
@@ -53,5 +60,10 @@ public class MyApplication extends MultiDexApplication {
     public static RefWatcher getRefWatcher(Context context) {
         MyApplication application = (MyApplication) context.getApplicationContext();
         return application.refWatcher;
+    }
+
+
+    public WanAndroidAppComponent getAppComponent() {
+        return appComponent;
     }
 }
