@@ -43,15 +43,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        DaggerBaseActivityComponent
-                .builder()
-                .build()
-                .inject(this);
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected void initEventAndData() {
 
 
@@ -94,7 +85,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     }
 
+    @Override
+    protected void initject() {
+        super.initject();
 
+        activityComponent.inject(this);
+
+    }
 
     @Override
     protected void onStop() {
@@ -110,7 +107,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.onDestroy();
     }
 
-//    关闭动画
+
+
+    //    关闭动画
     private void cancenAnimation(LottieAnimationView lottieAnimationView) {
 
         if(lottieAnimationView != null){

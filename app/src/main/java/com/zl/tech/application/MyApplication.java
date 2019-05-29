@@ -21,7 +21,7 @@ public class MyApplication extends MultiDexApplication {
 
     private RefWatcher refWatcher;
 
-    private WanAndroidAppComponent appComponent;
+    private static WanAndroidAppComponent appComponent;
 
 //    判断是不是第一次进入应用(默认为true)
     public static boolean isFirstRun = true;
@@ -63,7 +63,7 @@ public class MyApplication extends MultiDexApplication {
     }
 
 
-    public WanAndroidAppComponent getAppComponent() {
+    public static WanAndroidAppComponent getAppComponent() {
         return appComponent;
     }
 }

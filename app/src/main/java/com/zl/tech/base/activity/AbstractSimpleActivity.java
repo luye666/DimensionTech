@@ -5,12 +5,8 @@ import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +58,8 @@ public abstract class AbstractSimpleActivity extends RxAppCompatActivity {
 
         bind = ButterKnife.bind(this);
 
+        initject();
+
         onViewCreated();
 
         initToobar();
@@ -69,8 +67,10 @@ public abstract class AbstractSimpleActivity extends RxAppCompatActivity {
 
         initEventAndData();
 
-
     }
+
+    protected abstract void initject();
+
 
     /**
      * 在此处注入Presenter

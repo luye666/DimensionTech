@@ -3,6 +3,7 @@ package com.zl.tech.di.module;
 import android.app.Application;
 
 import com.zl.tech.application.MyApplication;
+import com.zl.tech.ui.activity.MainActivity;
 
 import javax.inject.Singleton;
 
@@ -30,4 +31,5 @@ public class WanAndroidAppModule {
     public Application provideApplication() {
         return application;
     }
+
 }

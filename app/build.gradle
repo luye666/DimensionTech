@@ -67,13 +67,15 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.12.3'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0-alpha02'
     //        leakcanary解决内存泄漏
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     //    解决65536
     implementation 'com.android.support:multidex:1.0.3'
     //    Rxlifecycle
-    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
-    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
+    implementation 'com.trello.rxlifecycle3:rxlifecycle:3.0.0'
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-android:3.0.0'
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.0.0'
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-components:3.0.0'
 
 //    lottie动画库
     implementation 'com.airbnb.android:lottie:3.0.1'

@@ -2,7 +2,7 @@ package com.zl.tech.ui.fragment;
 
 
 import com.zl.tech.R;
-import com.zl.tech.base.BaseFragment;
+import com.zl.tech.base.fragment.BaseFragment;
 
 /**
  * A simple
@@ -17,10 +17,6 @@ public class CommunityFragment extends BaseFragment {
         return R.layout.fragment_community;
     }
 
-    @Override
-    protected BasePresenter initPresenter() {
-        return null;
-    }
 
     @Override
     protected void initData() {

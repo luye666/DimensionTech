@@ -1,14 +1,17 @@
-package com.zl.tech.base;
+package com.zl.tech.base.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import androidx.annotation.Nullable;
 
-import com.trello.rxlifecycle2.components.support.RxFragment;
+import com.trello.rxlifecycle3.components.support.RxFragment;
+import com.zl.tech.base.BaseView;
+import com.zl.tech.base.presenter.BasePresenter;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -24,6 +27,8 @@ import io.reactivex.annotations.NonNull;
 public abstract class BaseFragment<P extends BasePresenter> extends RxFragment implements BaseView {
 
     private Unbinder unbinder;
+
+    @Inject
     protected P mPresenter;
 
 
@@ -40,15 +45,14 @@ public abstract class BaseFragment<P extends BasePresenter> extends RxFragment i
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (mPresenter == null) {
-            mPresenter = initPresenter();
-        }
+
 
         if (mPresenter != null) {
             mPresenter.AttachView(this);
         }
 
         initData();
+
 
     }
 
@@ -74,8 +78,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends RxFragment i
     }
 
     protected abstract int protetedId();
-
-    protected abstract P initPresenter();
 
     protected abstract void initData();
 

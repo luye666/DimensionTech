@@ -10,24 +10,23 @@ import io.reactivex.disposables.Disposable;
 /**
  * Created by zhanglu on 2019/05/28   QQ:1228717266
  * <p/>
- *
- *
  */
-public abstract class BasePresenter<V extends BaseView> implements AbstractSimplePresenter<V>{
+public abstract class BasePresenter<V extends BaseView> implements AbstractSimplePresenter<V> {
 
     private WeakReference<V> weakReference;
 
     /**
      * CompositeDisposable:可以快速解除所有添加的Disposable类
-     *  每当我们得到一个Disposable时就调用CompositeDisposable.add()将它添加到容器中,
-     *  在退出的时候, 调用CompositeDisposable.clear()
-     *  即可快速解除.
+     * 每当我们得到一个Disposable时就调用CompositeDisposable.add()将它添加到容器中,
+     * 在退出的时候, 调用CompositeDisposable.clear()
+     * 即可快速解除.
      */
     private CompositeDisposable compositeDisposable;
 
     /**
      * 注入Activity，创建弱引用解决内存泄露的隐患
-     * @param v   BaseView的子类
+     *
+     * @param v BaseView的子类
      */
     @Override
     public void AttachView(V v) {
@@ -39,7 +38,7 @@ public abstract class BasePresenter<V extends BaseView> implements AbstractSimpl
         return weakReference.get();
     }
 
-    boolean isAttachView() {
+    public boolean isAttachView() {
         return weakReference.get() != null && weakReference != null;
     }
 
@@ -67,9 +66,10 @@ public abstract class BasePresenter<V extends BaseView> implements AbstractSimpl
 
     /**
      * 创建CompositeDisposable，并添加Disposable
+     *
      * @param disposable：查询以及解除订阅的类
      */
-    protected void addSubscribe(Disposable disposable){
+    protected void addSubscribe(Disposable disposable) {
         if (compositeDisposable == null) {
             compositeDisposable = new CompositeDisposable();
         }

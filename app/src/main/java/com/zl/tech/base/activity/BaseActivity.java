@@ -3,12 +3,16 @@ package com.zl.tech.base.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.zl.tech.application.MyApplication;
 import com.zl.tech.base.BaseView;
+import com.zl.tech.base.presenter.BasePresenter;
+import com.zl.tech.di.component.activity.BaseActivityComponent;
+import com.zl.tech.di.component.activity.DaggerBaseActivityComponent;
+import com.zl.tech.di.module.activity.ActivityMoudel;
 
 import javax.inject.Inject;
 
@@ -20,11 +24,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AbstractSimp
 
     @Inject
     protected P mPresenter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    protected BaseActivityComponent activityComponent;
 
     @Override
     protected void onViewCreated() {
@@ -39,6 +39,15 @@ public abstract class BaseActivity<P extends BasePresenter> extends AbstractSimp
         if (mPresenter != null) {
             mPresenter.Destory();
         }
+    }
+
+    @Override
+    protected void initject() {
+        activityComponent = DaggerBaseActivityComponent
+                .builder()
+                .wanAndroidAppComponent(MyApplication.getAppComponent())
+                .activityMoudel(new ActivityMoudel(this))
+                .build();
     }
 
     @Override
