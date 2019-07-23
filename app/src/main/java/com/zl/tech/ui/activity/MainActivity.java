@@ -1,14 +1,13 @@
 package com.zl.tech.ui.activity;
-
 import android.content.Intent;
-import android.os.Bundle;
+import android.util.Log;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.zl.tech.R;
 import com.zl.tech.application.MyApplication;
 import com.zl.tech.base.activity.BaseActivity;
 import com.zl.tech.contract.MainContract;
-import com.zl.tech.di.component.activity.DaggerBaseActivityComponent;
+import com.zl.tech.di.annotation.Logger;
 import com.zl.tech.presenter.MainPresenter;
 
 import butterknife.BindView;
@@ -80,6 +79,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void goToShow() {
+
+        log(new String[]{"fdfs","hisjiodfjasi"});
         Intent intent = new Intent(this, ShowActivity.class);
         startActivity(intent);
 
@@ -130,6 +131,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         cancenAnimation(mTenAnimation);
     }
 
+    @Logger(Log.ERROR)
+    public void log(String... t){
 
+    }
 }
 

@@ -7,7 +7,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.4.2'
+//      导入AOP之Aspectj
+        classpath 'org.aspectj:aspectjtools:1.9.2'
 
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -29,3 +31,10 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+project.ext.set("minSdkVersion","16")
+project.ext.set("targetSdkVersion","28")
+project.ext.set("buildToolsVersion","28.0.3")
+project.ext.set("versionCode","10001")
+project.ext.set("versionName","1.0.1")
+project.ext.set("compileSdkVersion","28")
