@@ -40,4 +40,7 @@ project.ext.set("buildToolsVersion", "29.0.0")
 project.ext.set("versionCode", "10001")
 project.ext.set("versionName", "1.0.1")
 project.ext.set("compileSdkVersion", "29")
-project.ext.set("appcompatVersion","appcompat:1.0.2");
+project.ext.set("appcompatVersion","appcompat:1.0.2")
+project.ext.set("constraintVersion","constraintlayout:1.1.3")
+project.ext.set("smartRefreshLayoutVersion","SmartRefreshLayout:1.1.0-alpha-14")
+project.ext.set("aspectjVersion","aspectjrt:1.9.2")
