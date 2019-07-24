@@ -44,20 +44,28 @@ import org.aspectj.tools.ajc.Main
 
 //在构建工程时，执行编织
 project.android.applicationVariants.all { variant ->
-    JavaCompile javaCompile = variant.javaCompile
+def javaCompileProvider;
+    if (variant.hasProperty('javaCompileProvider')) {
+        // Android 3.3.0+
+        javaCompileProvider = variant.javaCompileProvider.get()
+    } else {
+        javaCompileProvider = variant.javaCompile
+    }
+
     //在编译后 增加行为
-    javaCompile.doLast {
+
+    javaCompileProvider.doLast {
         println "执行AspectJ编译器......"
         String[] args = [
                 "-1.8",
                 //aspectJ 处理的源文件
-                "-inpath", javaCompile.destinationDir.toString(),
+                "-inpath", javaCompileProvider.destinationDir.toString(),
                 //输出目录，aspectJ处理完成后的输出目录
-                "-d", javaCompile.destinationDir.toString(),
+                "-d", javaCompileProvider.destinationDir.toString(),
                 //aspectJ 编译器的classpath aspectjtools
-                "-aspectpath", javaCompile.classpath.asPath,
+                "-aspectpath", javaCompileProvider.classpath.asPath,
                 //java的类查找路径
-                "-classpath", javaCompile.classpath.asPath,
+                "-classpath", javaCompileProvider.classpath.asPath,
                 //覆盖引导类的位置  android中使用android.jar 而不是jdk
                 "-bootclasspath", project.android.bootClasspath.join(File.pathSeparator)]
         new Main().runMain(args, false)
@@ -104,7 +112,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     implementation 'com.jakewharton.rxbinding3:rxbinding-core:3.0.0-alpha2'
-    implementation 'com.google.android.material:material:1.1.0-alpha06'
+    implementation 'com.google.android.material:material:1.1.0-alpha08'
 
 //        UI
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
